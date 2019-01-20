@@ -1,13 +1,11 @@
 package com.tomputtemans.speechrecognizerintenttest;
 
 import android.Manifest;
+import android.app.Activity;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.speech.RecognizerIntent;
-import android.support.v4.app.ActivityCompat;
-import android.support.v4.content.ContextCompat;
-import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -16,7 +14,7 @@ import android.widget.Toast;
 import java.util.List;
 import java.util.Locale;
 
-public class MainActivity extends AppCompatActivity implements View.OnClickListener {
+public class MainActivity extends Activity implements View.OnClickListener {
 
     private TextView status;
 
@@ -24,21 +22,21 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        status = (TextView) findViewById(R.id.textView);
-        Button speech = (Button) findViewById(R.id.speech);
+        status = findViewById(R.id.textView);
+        Button speech = findViewById(R.id.speech);
         speech.setOnClickListener(this);
-        Button speechLocale = (Button) findViewById(R.id.speechLocale);
+        Button speechLocale = findViewById(R.id.speechLocale);
         speechLocale.setOnClickListener(this);
-        TextView localeText = (TextView) findViewById(R.id.localeText);
+        TextView localeText = findViewById(R.id.localeText);
         localeText.setText("Your locale is " + Locale.getDefault().getLanguage());
-        Button speechLanguage = (Button) findViewById(R.id.speechLanguage);
+        Button speechLanguage = findViewById(R.id.speechLanguage);
         speechLanguage.setOnClickListener(this);
         status.setText("Initialized");
     }
 
     @Override
     public void onClick(View view) {
-        if (!checkPermission()) {
+        if (!checkAudioPermission()) {
             status.setText("Requesting permission");
             return;
         }
@@ -80,14 +78,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
     }
 
-    private boolean checkPermission() {
-        if (ContextCompat.checkSelfPermission(this, Manifest.permission.RECORD_AUDIO) == PackageManager.PERMISSION_GRANTED) {
+    private boolean checkAudioPermission() {
+        if (checkSelfPermission(Manifest.permission.RECORD_AUDIO) == PackageManager.PERMISSION_GRANTED) {
             return true;
         } else {
-            if (ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.RECORD_AUDIO)) {
+            if (shouldShowRequestPermissionRationale(Manifest.permission.RECORD_AUDIO)) {
                 Toast.makeText(this, "Record audio is required", Toast.LENGTH_LONG).show();
             } else {
-                ActivityCompat.requestPermissions(this, new String[]{ Manifest.permission.RECORD_AUDIO }, 1);
+                requestPermissions( new String[]{ Manifest.permission.RECORD_AUDIO }, 1);
             }
         }
         return false;
