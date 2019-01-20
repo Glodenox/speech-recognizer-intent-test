@@ -28,13 +28,21 @@
         android:layout_below="@+id/speech"
         android:layout_centerHorizontal="true" />
 
+    <TextView
+        android:text="TextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/localeText"
+        android:layout_below="@+id/speechLocale"
+        android:layout_centerHorizontal="true" />
+
     <Button
         android:text="Start speech recognition with language"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/speechLanguage"
         android:layout_marginTop="10dp"
-        android:layout_below="@+id/speechLocale"
+        android:layout_below="@+id/localeText"
         android:layout_centerHorizontal="true" />
 
     <TextView

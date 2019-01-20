@@ -29,6 +29,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         speech.setOnClickListener(this);
         Button speechLocale = (Button) findViewById(R.id.speechLocale);
         speechLocale.setOnClickListener(this);
+        TextView localeText = (TextView) findViewById(R.id.localeText);
+        localeText.setText("Your locale is " + Locale.getDefault().getLanguage());
         Button speechLanguage = (Button) findViewById(R.id.speechLanguage);
         speechLanguage.setOnClickListener(this);
         status.setText("Initialized");
